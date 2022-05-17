@@ -1,0 +1,22 @@
+#include <iostream>
+
+int main()
+{
+	int T;
+	std::cin >> T;
+
+	for (int i = 0;i < T;i++)
+	{
+		int N;
+		int D;
+		std::cin >> N;
+		std::cin >> D;
+		int cnt = 0;
+
+		for (int j = 0; j < N;j += 1 + D * 2)
+			cnt++;
+
+		std::cout << "#" << i+1 << " " << cnt << "\n";
+	}
+
+}
