@@ -1,0 +1,96 @@
+/*
+  한 쌍의 수만 swap해야 하므로 next_permutation 사용불가
+  n이 정수형 범위를 넘어서므로 문자열로 처리해야 함
+  숫자가 1자리일 때 -> 그대로 max/min 출력
+  숫자가 가장 작거나 커지려면 낮은자리(맨 뒤 idx)부터 비교해야함
+  첫 번째 자리수가 안바뀌는 경우 -> 자리 수를 idx 끝까지 늘려가며 한번 바뀔 때까지 break; 해야 함 -> 안바뀌면 그대로 출력
+  맨 앞이 0이면 안됨 -> max의 경우 n의 맨 앞이 0인 경우는 1자리일 때 밖에 없으므로 고려x min의 경우 맨 첫 인덱스가 0으로 바뀌는 것만 예외처리하면 뒤부터는 0으로 바뀌어도 됨
+  
+*/
+
+#include <iostream>
+#include <string>
+
+std::string findMax(std::string n)
+{
+	for (int j = 0;j < n.length(); j++)
+	{
+		int max = n[j];
+		int idx = j;
+
+		for (int k = n.length() - 1;k > j; k--)
+		{
+			if (n[k] > max)
+			{
+				max = n[k];
+				idx = k;
+			}
+		}
+
+		if (idx != j)
+		{
+			char tmp = n[j];
+			n[j] = max;
+			n[idx] = tmp;
+			break;
+		}
+	}
+	return n;
+}
+
+std::string findMin(std::string n)
+{
+	for (int j = 0;j < n.length();j++)
+	{
+		int min = n[j];
+		int idx = j;
+
+		for (int k = n.length() - 1;k > j; k--)
+		{
+			if (j == 0)
+			{
+				if (n[k] < min && n[k] != '0')
+				{
+					min = n[k];
+					idx = k;
+				}
+
+			}
+			else
+				if (n[k] < min)
+				{
+					min = n[k];
+					idx = k;
+				}
+		}
+		
+
+		if (idx != j)
+		{
+			char tmp = n[j];
+			n[j] = min;
+			n[idx] = tmp;
+			break;
+		}
+	}
+	return n;
+}
+
+int main()
+{
+	int t;
+
+	std::cin >> t;
+
+	for (int i = 0;i < t;i++)
+	{
+		std::string n;
+		std::cin >> n;
+		
+		std::string max = findMax(n);
+		std::string min = findMin(n);
+
+		std::cout << "#" << (i + 1) << " " << min << " " << max << "\n";
+	}
+
+}
