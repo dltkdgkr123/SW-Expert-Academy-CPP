@@ -1,0 +1,31 @@
+#include <iostream>
+
+#define MAX 15
+
+int main()
+{
+	int t;
+	std::cin >> t;
+
+	for (int i = 0;i < t;i++)
+	{
+		std::string s;
+		std::cin >> s;
+		int cnt = 0;
+		for (int j = 0;j < s.length();j++)
+		{
+			if (s.at(j) == 'x')
+			{
+				cnt++;
+			}
+		}
+
+		std::cout << '#' << i + 1 << ' ';
+
+		if (MAX - cnt > 7)
+			std::cout << "YES" << "\n";
+		else
+			std::cout << "NO" << "\n";
+	}
+
+}
